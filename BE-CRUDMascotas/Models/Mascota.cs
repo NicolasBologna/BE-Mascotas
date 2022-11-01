@@ -9,6 +9,7 @@
         public int Edad { get; set; }
         public float Peso { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public Duenio Duenio { get; set; }
 
     }
 }
