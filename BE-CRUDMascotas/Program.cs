@@ -28,6 +28,11 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 // Add Services
 builder.Services.AddScoped<IMascotaRepository, MascotaRepository>();
+builder.Services.AddScoped<IDuenioRepository, DuenioRepository>();
+
+
+
+
 
 
 var app = builder.Build();

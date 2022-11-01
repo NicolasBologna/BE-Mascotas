@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BE_CRUDMascotas.Models;
 using BE_CRUDMascotas.Models.DTO;
+using BE_CRUDMascotas.Models.Entities;
 using BE_CRUDMascotas.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,121 +11,36 @@ namespace BE_CRUDMascotas.Controllers
     public class DuenioController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IMascotaRepository _mascotaRepository;
+        private readonly IDuenioRepository _duenioRepository;
 
-        public DuenioController(IMapper mapper, IMascotaRepository mascotaRepository)
+        public DuenioController(IMapper mapper, IDuenioRepository duenioRepository)
         {
             _mapper = mapper;
-            _mascotaRepository = mascotaRepository;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            try
-            {
-                var listMascotas = await _mascotaRepository.GetListMascotas();
-
-                var listMascotasDto = _mapper.Map<IEnumerable<MascotaDTO>>(listMascotas);
-
-                return Ok(listMascotasDto);
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
-
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-            try
-            {
-                var mascota = await _mascotaRepository.GetMascota(id);
-
-                if (mascota == null)
-                {
-                    return NotFound();
-                }
-
-                var mascotaDto = _mapper.Map<MascotaDTO>(mascota);
-
-                return Ok(mascotaDto);
-
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            try
-            {
-                var mascota = await _mascotaRepository.GetMascota(id);
-
-                if (mascota == null)
-                {
-                    return NotFound();
-                }
-
-                await _mascotaRepository.DeleteMascota(mascota);
-
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Post(MascotaDTO mascotaDto)
-        {
-            try
-            {
-                var mascota = _mapper.Map<Mascota>(mascotaDto);
-
-                mascota.FechaCreacion = DateTime.Now;
-
-                mascota = await _mascotaRepository.AddMascota(mascota);
-
-                var mascotaItemDto = _mapper.Map<MascotaDTO>(mascota);
-
-                return CreatedAtAction("Get", new { id = mascotaItemDto.Id }, mascotaItemDto);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _duenioRepository = duenioRepository;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, MascotaDTO mascotaDto)
+        public IActionResult Put(int id, DuenioDTO duenioDto)
         {
             try
             {
-                var mascota = _mapper.Map<Mascota>(mascotaDto);
+                var duenioModificado = _mapper.Map<Duenio>(duenioDto);
 
-                if (id != mascota.Id)
+                if (id != duenioModificado.Id)
                 {
                     return BadRequest();
                 }
 
-                var mascotaItem = await _mascotaRepository.GetMascota(id);
+                var duenioBaseDeDatos = _duenioRepository.GetDuenio(id);
 
-                if (mascotaItem == null)
+                if (duenioBaseDeDatos == null)
                 {
                     return NotFound();
                 }
 
-                await _mascotaRepository.UpdateMascota(mascota);
+                _mapper.Map(duenioModificado, duenioBaseDeDatos);
+
+                _duenioRepository.UpdateDuenio(duenioBaseDeDatos);
 
                 return NoContent();
 

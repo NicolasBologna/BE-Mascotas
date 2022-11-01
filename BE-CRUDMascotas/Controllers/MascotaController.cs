@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BE_CRUDMascotas.Models;
 using BE_CRUDMascotas.Models.DTO;
+using BE_CRUDMascotas.Models.Entities;
 using BE_CRUDMascotas.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +13,12 @@ namespace BE_CRUDMascotas.Controllers
     [ApiController]
     public class MascotaController : ControllerBase
     {
-        
+
         private readonly IMapper _mapper;
         private readonly IMascotaRepository _mascotaRepository;
 
         public MascotaController(IMapper mapper, IMascotaRepository mascotaRepository)
-        {           
+        {
             _mapper = mapper;
             _mascotaRepository = mascotaRepository;
         }

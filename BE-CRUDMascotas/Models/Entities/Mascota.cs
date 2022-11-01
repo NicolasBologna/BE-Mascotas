@@ -1,4 +1,4 @@
-﻿namespace BE_CRUDMascotas.Models
+﻿namespace BE_CRUDMascotas.Models.Entities
 {
     public class Mascota
     {

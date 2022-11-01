@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BE_CRUDMascotas.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BE_CRUDMascotas.Models.Repository
 {
-    public class MascotaRepository: IMascotaRepository
+    public class MascotaRepository : IMascotaRepository
     {
         private readonly AplicationDbContext _context;
 
@@ -26,11 +27,11 @@ namespace BE_CRUDMascotas.Models.Repository
 
         public async Task<List<Mascota>> GetListMascotas()
         {
-           return await _context.Mascotas.ToListAsync();
+            return await _context.Mascotas.ToListAsync();
         }
 
         public async Task<Mascota> GetMascota(int id)
-        {           
+        {
             return await _context.Mascotas.FindAsync(id);
         }
 
@@ -38,7 +39,7 @@ namespace BE_CRUDMascotas.Models.Repository
         {
             var mascotaItem = await _context.Mascotas.FirstOrDefaultAsync(x => x.Id == mascota.Id);
 
-            if(mascotaItem != null)
+            if (mascotaItem != null)
             {
                 mascotaItem.Nombre = mascota.Nombre;
                 mascotaItem.Raza = mascota.Raza;
@@ -48,7 +49,7 @@ namespace BE_CRUDMascotas.Models.Repository
 
                 await _context.SaveChangesAsync();
             }
-           
+
         }
     }
 }

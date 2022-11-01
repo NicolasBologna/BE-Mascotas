@@ -1,4 +1,5 @@
 ﻿
+using BE_CRUDMascotas.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BE_CRUDMascotas.Models

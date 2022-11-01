@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BE_CRUDMascotas.Models.DTO;
+using BE_CRUDMascotas.Models.Entities;
 
 namespace BE_CRUDMascotas.Models.Profiles
 {

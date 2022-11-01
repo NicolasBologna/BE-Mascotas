@@ -1,4 +1,6 @@
-﻿namespace BE_CRUDMascotas.Models.Repository
+﻿using BE_CRUDMascotas.Models.Entities;
+
+namespace BE_CRUDMascotas.Models.Repository
 {
     public interface IMascotaRepository
     {

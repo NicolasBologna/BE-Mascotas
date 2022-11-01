@@ -1,4 +1,6 @@
-﻿namespace BE_CRUDMascotas.Models.Repository
+﻿using BE_CRUDMascotas.Models.Entities;
+
+namespace BE_CRUDMascotas.Models.Repository
 {
     public class DuenioRepository : IDuenioRepository
     {
@@ -8,29 +10,43 @@
         {
             _context = context;
         }
-        public Task<Duenio> AddDuenio(Duenio mascota)
+
+        public void Saludar()
         {
-            throw new NotImplementedException();
+
         }
 
-        public Task DeleteDuenio(Duenio mascota)
+        public Duenio AddDuenio(Duenio duenio)
         {
-            throw new NotImplementedException();
+            _context.Duenios.Add(duenio);
+            _context.SaveChanges();
+            return duenio;
         }
 
-        public Task<Duenio> GetDuenio(int id)
+        public void DeleteDuenio(Duenio duenio)
         {
-            throw new NotImplementedException();
+            _context.Duenios.Remove(duenio);
+            _context.SaveChanges();
         }
 
-        public Task<List<Duenio>> GetListDuenios()
+        public Duenio? GetDuenio(int id)
         {
-            throw new NotImplementedException();
+            return _context.Duenios.SingleOrDefault(d => d.Id == id);
         }
 
-        public Task UpdateDuenio(Duenio mascota)
+        public List<Duenio> GetListDuenios()
         {
-            throw new NotImplementedException();
+            return _context.Duenios.ToList();
+        }
+
+        /// <summary>
+        /// Este metodo actualiza el dueño
+        /// </summary>
+        /// <param name="duenio"></param>
+        public void UpdateDuenio(Duenio duenio)
+        {
+            _context.Duenios.Update(duenio);
+            _context.SaveChanges();
         }
     }
 }
