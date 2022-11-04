@@ -8,6 +8,6 @@ namespace BE_CRUDMascotas.Models.Entities
         public int Id { get; set; }
         public string Nombre { get; set; }
         public long Celular { get; set; }
-        public List<Mascota> Mascota { get; set; }
+        public List<Mascota> Mascota { get; set; } = new List<Mascota>();
     }
 }

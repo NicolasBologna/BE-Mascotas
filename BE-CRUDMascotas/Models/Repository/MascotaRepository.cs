@@ -12,32 +12,32 @@ namespace BE_CRUDMascotas.Models.Repository
             _context = context;
         }
 
-        public async Task<Mascota> AddMascota(Mascota mascota)
+        public Mascota AddMascota(Mascota mascota)
         {
             _context.Add(mascota);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return mascota;
         }
 
-        public async Task DeleteMascota(Mascota mascota)
+        public void DeleteMascota(Mascota mascota)
         {
             _context.Mascotas.Remove(mascota);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async Task<List<Mascota>> GetListMascotas()
+        public List<Mascota> GetListMascotas()
         {
-            return await _context.Mascotas.ToListAsync();
+            return _context.Mascotas.ToList();
         }
 
-        public async Task<Mascota> GetMascota(int id)
+        public Mascota? GetMascota(int id)
         {
-            return await _context.Mascotas.FindAsync(id);
+            return _context.Mascotas.Find(id);
         }
 
-        public async Task UpdateMascota(Mascota mascota)
+        public void UpdateMascota(Mascota mascota)
         {
-            var mascotaItem = await _context.Mascotas.FirstOrDefaultAsync(x => x.Id == mascota.Id);
+            var mascotaItem = _context.Mascotas.FirstOrDefault(x => x.Id == mascota.Id);
 
             if (mascotaItem != null)
             {
@@ -47,7 +47,7 @@ namespace BE_CRUDMascotas.Models.Repository
                 mascotaItem.Peso = mascota.Peso;
                 mascotaItem.Color = mascota.Color;
 
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
 
         }

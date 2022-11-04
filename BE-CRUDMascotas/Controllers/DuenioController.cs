@@ -31,7 +31,7 @@ namespace BE_CRUDMascotas.Controllers
                     return BadRequest();
                 }
 
-                var duenioBaseDeDatos = _duenioRepository.GetDuenio(id);
+                Duenio? duenioBaseDeDatos = _duenioRepository.GetDuenio(id);
 
                 if (duenioBaseDeDatos == null)
                 {

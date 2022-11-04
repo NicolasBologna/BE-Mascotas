@@ -24,11 +24,11 @@ namespace BE_CRUDMascotas.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             try
             {
-                var listMascotas = await _mascotaRepository.GetListMascotas();
+                var listMascotas = _mascotaRepository.GetListMascotas();
 
                 var listMascotasDto = _mapper.Map<IEnumerable<MascotaDTO>>(listMascotas);
 
@@ -43,11 +43,11 @@ namespace BE_CRUDMascotas.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public IActionResult Get(int id)
         {
             try
             {
-                var mascota = await _mascotaRepository.GetMascota(id);
+                var mascota = _mascotaRepository.GetMascota(id);
 
                 if (mascota == null)
                 {
@@ -67,18 +67,18 @@ namespace BE_CRUDMascotas.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             try
             {
-                var mascota = await _mascotaRepository.GetMascota(id);
+                var mascota = _mascotaRepository.GetMascota(id);
 
                 if (mascota == null)
                 {
                     return NotFound();
                 }
 
-                await _mascotaRepository.DeleteMascota(mascota);
+                _mascotaRepository.DeleteMascota(mascota);
 
                 return NoContent();
             }
@@ -89,7 +89,7 @@ namespace BE_CRUDMascotas.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(MascotaDTO mascotaDto)
+        public IActionResult Post(MascotaDTO mascotaDto)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace BE_CRUDMascotas.Controllers
 
                 mascota.FechaCreacion = DateTime.Now;
 
-                mascota = await _mascotaRepository.AddMascota(mascota);
+                mascota = _mascotaRepository.AddMascota(mascota);
 
                 var mascotaItemDto = _mapper.Map<MascotaDTO>(mascota);
 
@@ -111,7 +111,7 @@ namespace BE_CRUDMascotas.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, MascotaDTO mascotaDto)
+        public IActionResult Put(int id, MascotaDTO mascotaDto)
         {
             try
             {
@@ -122,14 +122,14 @@ namespace BE_CRUDMascotas.Controllers
                     return BadRequest();
                 }
 
-                var mascotaItem = await _mascotaRepository.GetMascota(id);
+                var mascotaItem = _mascotaRepository.GetMascota(id);
 
                 if (mascotaItem == null)
                 {
                     return NotFound();
                 }
 
-                await _mascotaRepository.UpdateMascota(mascota);
+                _mascotaRepository.UpdateMascota(mascota);
 
                 return NoContent();
 
